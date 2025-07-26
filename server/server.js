@@ -29,7 +29,7 @@ const config = {
   session: {
     absoluteDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
     cookie: {
-      domain: process.env.NODE_ENV === "production" ? "http://localhost:8000" : undefined,
+      domain: process.env.NODE_ENV === "production" ? "https://missionpro-app-4qaf.onrender.com" : undefined,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     },

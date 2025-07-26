@@ -71,7 +71,7 @@ function MyJob({ job }: JobProps) {
           onClick={() => {
             isAuthenticated
               ? handleLike(job._id)
-              : router.push("http://localhost:8000/login");
+              : router.push("https://missionpro-app-4qaf.onrender.com/login");
           }}
         >
           {isLiked ? bookmark : bookmarkEmpty}

@@ -43,7 +43,7 @@ function ApplicantsPage({ params }: ApplicantPageProps) {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.push("http://localhost:8000/login");
+      router.push("https://missionpro-app-4qaf.onrender.com/login");
     }
   }, [isAuthenticated, loading, router]);
 
@@ -210,7 +210,7 @@ function ApplicantsPage({ params }: ApplicantPageProps) {
                           if (!applicant.resume) return;
                           const resumeUrl = applicant.resume.startsWith('http')
                             ? applicant.resume
-                            : `http://localhost:8000${applicant.resume}`;
+                            : `https://missionpro-app-4qaf.onrender.com${applicant.resume}`;
                           window.open(resumeUrl, '_blank');
                         }}
                         className="flex items-center gap-2"

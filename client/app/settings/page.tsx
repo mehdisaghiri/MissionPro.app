@@ -32,7 +32,7 @@ function SettingsPage() {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.push("http://localhost:8000/login");
+      router.push("https://missionpro-app-4qaf.onrender.com/login");
     }
   }, [isAuthenticated, loading, router]);
 
@@ -283,7 +283,7 @@ function SettingsPage() {
                         onClick={() => window.open(
                           formData.resume.startsWith('http')
                             ? formData.resume
-                            : `http://localhost:8000${formData.resume}`,
+                            : `https://missionpro-app-4qaf.onrender.com${formData.resume}`,
                           '_blank'
                         )}
                       >

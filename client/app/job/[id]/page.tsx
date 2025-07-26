@@ -100,7 +100,7 @@ function page() {
                 onClick={() => {
                   isAuthenticated
                     ? handleLike(job._id)
-                    : router.push("http://localhost:8000/login");
+                    : router.push("https://missionpro-app-4qaf.onrender.com/login");
                 }}
               >
                 {isLiked ? bookmark : bookmarkEmpty}
@@ -176,7 +176,7 @@ function page() {
                   toast.error("Vous avez déjà postulé à cet emploi");
                 }
               } else {
-                router.push("http://localhost:8000/login");
+                router.push("https://missionpro-app-4qaf.onrender.com/login");
               }
             }}
           >
