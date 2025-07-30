@@ -31,7 +31,7 @@ const config = {
   clientID: process.env.CLIENT_ID || '',
   issuerBaseURL: process.env.ISSUER_BASE_URL || '',
   routes: {
-    postLogoutRedirect: process.env.CLIENT_URL || 'http://localhost:3000',
+    postLogoutRedirect: process.env.CLIENT_URL,
     callback: "/callback",
     logout: "/logout",
     login: "/login",
@@ -52,7 +52,7 @@ const config = {
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: process.env.CLIENT_URL ,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -128,7 +128,7 @@ app.get("/", async (req, res) => {
       await enusureUserInDB(req.oidc.user);
 
       // redirect to the frontend
-      return res.redirect(process.env.CLIENT_URL || 'http://localhost:3000');
+      return res.redirect(process.env.CLIENT_URL);
     } else {
       return res.json({
         message: "MissionPro API Server",
