@@ -70,23 +70,23 @@ export default function Home() {
     <main>
       <Header />
 
-      <section className="py-20 bg-gradient-to-b from-[#d7dedc] to-[#7263f3]/5 text-primary-foreground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#d7dedc] to-[#7263f3]/5 text-primary-foreground">
         <div className="container mx-auto px-4 text-center text-black">
-          <h1 className="text-4xl text-[#7263f3] md:text-5xl font-bold mb-6">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#7263f3] font-bold mb-4 sm:mb-6 leading-tight">
             {t('home.hero.title')}
           </h1>
-          <p className="text-xl mb-8">
+          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto">
             {t('home.hero.subtitle')}
           </p>
-          <div className="max-w-2xl mx-auto flex gap-4">
+          <div className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Input
               type="text"
               placeholder={t('home.search.placeholder')}
-              className="flex-grow bg-white text-black"
+              className="flex-grow bg-white text-black h-12 text-base"
             />
-            <Button className="bg-[#7263f3] text-white">
-              <SearchIcon className="w-6 h-6" />
-              {t('home.search.button')}
+            <Button className="bg-[#7263f3] text-white h-12 px-6 whitespace-nowrap">
+              <SearchIcon className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
+              <span className="text-sm sm:text-base">{t('home.search.button')}</span>
             </Button>
           </div>
         </div>

@@ -130,11 +130,7 @@ app.get("/", async (req, res) => {
       // redirect to the frontend
       return res.redirect(process.env.CLIENT_URL);
     } else {
-      return res.json({
-        message: "MissionPro API Server",
-        status: "running",
-        auth: "not authenticated"
-      });
+      return res.send("Logged out");
     }
   } catch (error) {
     console.error("Error in root route:", error.message);
