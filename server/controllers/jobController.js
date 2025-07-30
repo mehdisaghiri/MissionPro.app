@@ -2,6 +2,8 @@ import asyncHandler from "express-async-handler";
 import User from "../models/UserModel.js";
 import Job from "../models/JobModel.js";
 
+
+// create Job 
 export const createJob = asyncHandler(async (req, res) => {
   try {
     const user = await User.findOne({ auth0Id: req.oidc.user.sub });

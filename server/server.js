@@ -8,19 +8,30 @@ import asyncHandler from "express-async-handler";
 import fs from "fs";
 import User from "./models/UserModel.js";
 import { log } from "console";
+
+// Load environment variables
 dotenv.config();
+
+// Validate required environment variables
+const requiredEnvVars = ['SECRET', 'CLIENT_ID', 'ISSUER_BASE_URL'];
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+
+if (missingEnvVars.length > 0) {
+  console.error('Missing required environment variables:', missingEnvVars);
+  console.error('Please set these environment variables in your Render service settings');
+}
 
 const app = express();
 
 const config = {
   authRequired: false,
   auth0Logout: true,
-  secret: process.env.SECRET,
-  baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
-  issuerBaseURL: process.env.ISSUER_BASE_URL,
+  secret: process.env.SECRET || 'fallback-secret-for-development',
+  baseURL: process.env.BASE_URL || 'https://missionpro-app-4qaf.onrender.com',
+  clientID: process.env.CLIENT_ID || '',
+  issuerBaseURL: process.env.ISSUER_BASE_URL || '',
   routes: {
-    postLogoutRedirect: process.env.CLIENT_URL,
+    postLogoutRedirect: process.env.CLIENT_URL || 'http://localhost:3000',
     callback: "/callback",
     logout: "/logout",
     login: "/login",
@@ -29,7 +40,10 @@ const config = {
   session: {
     absoluteDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
     cookie: {
-      domain: process.env.NODE_ENV === "production" ? "https://missionpro-app-4qaf.onrender.com" : undefined,
+      // Extract domain from BASE_URL if available, otherwise use undefined
+      domain: process.env.NODE_ENV === "production" && process.env.BASE_URL
+        ? new URL(process.env.BASE_URL).hostname
+        : undefined,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     },
@@ -38,7 +52,7 @@ const config = {
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -53,7 +67,23 @@ app.use(cookieParser());
 // Serve uploaded files
 app.use('/uploads', express.static('uploads'));
 
-app.use(auth(config));
+// Only use auth if required environment variables are present
+if (process.env.SECRET && process.env.CLIENT_ID && process.env.ISSUER_BASE_URL) {
+  try {
+    app.use(auth(config));
+    console.log('✅ Auth0 authentication enabled');
+  } catch (error) {
+    console.error('❌ Failed to initialize Auth0:', error.message);
+    console.warn('Authentication disabled due to configuration error');
+  }
+} else {
+  console.warn('⚠️  Auth0 configuration incomplete. Authentication disabled.');
+  console.warn('Missing environment variables:', {
+    SECRET: !process.env.SECRET,
+    CLIENT_ID: !process.env.CLIENT_ID,
+    ISSUER_BASE_URL: !process.env.ISSUER_BASE_URL
+  });
+}
 
 // function to check if user exists in the db
 const enusureUserInDB = asyncHandler(async (user) => {
@@ -81,42 +111,87 @@ const enusureUserInDB = asyncHandler(async (user) => {
   }
 });
 
-app.get("/", async (req, res) => {
-  if (req.oidc.isAuthenticated()) {
-    // check if Auth0 user exists in the db
-    await enusureUserInDB(req.oidc.user);
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Server is running",
+    timestamp: new Date().toISOString(),
+    port: process.env.PORT || 3000
+  });
+});
 
-    // redirect to the frontend
-    return res.redirect(process.env.CLIENT_URL);
-  } else {
-    return res.send("Logged out");
+app.get("/", async (req, res) => {
+  try {
+    if (req.oidc && req.oidc.isAuthenticated()) {
+      // check if Auth0 user exists in the db
+      await enusureUserInDB(req.oidc.user);
+
+      // redirect to the frontend
+      return res.redirect(process.env.CLIENT_URL || 'http://localhost:3000');
+    } else {
+      return res.json({
+        message: "MissionPro API Server",
+        status: "running",
+        auth: "not authenticated"
+      });
+    }
+  } catch (error) {
+    console.error("Error in root route:", error.message);
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message
+    });
   }
 });
 
 // routes
-const routeFiles = fs.readdirSync("./routes");
+try {
+  const routeFiles = fs.readdirSync("./routes");
 
-routeFiles.forEach((file) => {
-  // import dynamic routes
-  import(`./routes/${file}`)
-    .then((route) => {
-      app.use("/api/v1/", route.default);
-    })
-    .catch((error) => {
-      console.log("Error importing route", error);
-    });
-});
+  routeFiles.forEach((file) => {
+    // import dynamic routes
+    import(`./routes/${file}`)
+      .then((route) => {
+        app.use("/api/v1/", route.default);
+        console.log(`Route loaded: ${file}`);
+      })
+      .catch((error) => {
+        console.error(`Error importing route ${file}:`, error.message);
+      });
+  });
+} catch (error) {
+  console.error("Error reading routes directory:", error.message);
+}
 
 const server = async () => {
   try {
-    await connect();
+    // Try to connect to database
+    if (process.env.MONGO_URI) {
+      await connect();
+    } else {
+      console.warn('MONGO_URI not found. Database connection skipped.');
+    }
 
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server is running on port ${PORT}`);
+
+    const serverInstance = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`✅ Server is running on port ${PORT}`);
+      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🔗 Server URL: http://localhost:${PORT}`);
     });
+
+    // Handle server errors
+    serverInstance.on('error', (error) => {
+      console.error('Server error:', error.message);
+      if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`);
+      }
+    });
+
   } catch (error) {
-    console.log("Server error", error.message);
+    console.error("Failed to start server:", error.message);
+    console.error("Stack trace:", error.stack);
     process.exit(1);
   }
 };
