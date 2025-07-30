@@ -1,0 +1,19 @@
+{
+  "name": "missionpro-app",
+  "version": "1.0.0",
+  "description": "MissionPro Job Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "dev": "cd server && npm run dev",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "build": "cd server && npm install"
+  },
+  "keywords": ["job", "platform", "nodejs", "express"],
+  "author": "Your Name",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
