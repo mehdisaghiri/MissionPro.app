@@ -6,8 +6,10 @@ import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 import { Slider } from "./ui/slider";
 import formatMoney from "@/utils/formatMoney";
+import { Filter, X } from "lucide-react";
 
 function Filters() {
+  const [isOpen, setIsOpen] = React.useState(false);
   const {
     handleFilterChange,
     filters,
@@ -50,7 +52,75 @@ function Filters() {
   };
 
   return (
-    <div className="w-[22rem] pr-4 space-y-6">
+    <>
+      {/* Mobile Filter Toggle Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="lg:hidden flex items-center gap-2 w-full p-4 bg-white rounded-lg border border-gray-200 mb-4"
+      >
+        <Filter size={20} />
+        <span>Filtres</span>
+      </button>
+
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+          <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-lg overflow-y-auto">
+            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-lg font-semibold">Filtres</h2>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 hover:bg-gray-100 rounded-full"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="p-4 space-y-6">
+              <FiltersContent
+                filters={filters}
+                handleFilterChange={handleFilterChange}
+                clearAllFilters={clearAllFilters}
+                searchJobs={searchJobs}
+                minSalary={minSalary}
+                maxSalary={maxSalary}
+                handleMinSalaryChange={handleMinSalaryChange}
+                handleMaxSalaryChange={handleMaxSalaryChange}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Filters */}
+      <div className="hidden lg:block w-[22rem] pr-4 space-y-6">
+        <FiltersContent
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          clearAllFilters={clearAllFilters}
+          searchJobs={searchJobs}
+          minSalary={minSalary}
+          maxSalary={maxSalary}
+          handleMinSalaryChange={handleMinSalaryChange}
+          handleMaxSalaryChange={handleMaxSalaryChange}
+        />
+      </div>
+    </>
+  );
+}
+
+// Extract filters content to reuse in both mobile and desktop
+function FiltersContent({
+  filters,
+  handleFilterChange,
+  clearAllFilters,
+  searchJobs,
+  minSalary,
+  maxSalary,
+  handleMinSalaryChange,
+  handleMaxSalaryChange
+}: any) {
+  return (
+    <>
       <div>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold mb-4">Type d'Emploi</h2>
@@ -174,7 +244,7 @@ function Filters() {
           {formatMoney(maxSalary, "GBP")}
         </span>
       </div>
-    </div>
+    </>
   );
 }
 

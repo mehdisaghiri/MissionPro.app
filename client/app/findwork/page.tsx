@@ -47,21 +47,22 @@ function page() {
     <main>
       <Header />
 
-      <div className="relative px-16 bg-[#D7DEDC] overflow-hidden">
-        <h1 className="py-8 text-black font-bold text-3xl">
+      <div className="relative px-4 sm:px-8 lg:px-16 bg-[#D7DEDC] overflow-hidden">
+        <h1 className="py-6 sm:py-8 text-black font-bold text-xl sm:text-2xl lg:text-3xl">
           Trouvez Votre Prochain Emploi Ici
         </h1>
 
-        <div className="pb-8 relative z-10">
+        <div className="pb-6 sm:pb-8 relative z-10">
           <SearchForm />
         </div>
 
+        {/* Hide decorative images on mobile */}
         <Image
           src="/woman-on-phone.jpg"
           alt="hero"
           width={200}
           height={500}
-          className="clip-path w-[15rem] absolute z-0 top-[0] right-[10rem] h-full object-cover"
+          className="clip-path w-[15rem] absolute z-0 top-[0] right-[10rem] h-full object-cover hidden lg:block"
         />
 
         <Image
@@ -69,19 +70,19 @@ function page() {
           alt="hero"
           width={200}
           height={500}
-          className="clip-path-2 rotate-6 w-[15rem] absolute z-0 top-[0] right-[32rem] h-full object-cover"
+          className="clip-path-2 rotate-6 w-[15rem] absolute z-0 top-[0] right-[32rem] h-full object-cover hidden xl:block"
         />
       </div>
 
-      <div className="w-[90%] mx-auto mb-14">
-        <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-black py-8">Emplois Récents</h2>
+      <div className="w-[95%] sm:w-[90%] mx-auto mb-14 px-2 sm:px-0">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black py-4 sm:py-8">Emplois Récents</h2>
 
           <button
             onClick={toggleGridColumns}
-            className="flex items-center gap-4 border border-gray-400 px-8 py-2 rounded-full font-medium"
+            className="flex items-center gap-2 sm:gap-4 border border-gray-400 px-4 sm:px-8 py-2 rounded-full font-medium text-sm sm:text-base"
           >
-            <span>
+            <span className="hidden sm:inline">
               {columns === 3
                 ? "Vue Grille"
                 : columns === 2
@@ -92,15 +93,18 @@ function page() {
           </button>
         </div>
 
-        <div className="flex gap-8">
-          <Filters />
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+          {/* Mobile filters will be handled by Filters component */}
+          <div className="lg:w-80 lg:flex-shrink-0">
+            <Filters />
+          </div>
 
           <div
-            className={`self-start flex-1 grid gap-8 ${
+            className={`flex-1 grid gap-4 sm:gap-6 lg:gap-8 ${
               columns === 3
-                ? "grid-cols-3"
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                 : columns === 2
-                ? "grid-cols-2"
+                ? "grid-cols-1 sm:grid-cols-2"
                 : "grid-cols-1"
             }`}
           >
@@ -110,7 +114,7 @@ function page() {
               ))
             ) : (
               <div className="mt-1 flex items-center">
-                <p className="text-2xl font-bold">Aucun Emploi Trouvé !</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold">Aucun Emploi Trouvé !</p>
               </div>
             )}
           </div>

@@ -65,20 +65,26 @@ function page() {
     <main>
       <Header />
 
-      <div className="p-8 mb-8 mx-auto w-[90%] rounded-md flex gap-8">
-        <div className="w-[26%] flex flex-col gap-8">
-          <JobCard activeJob job={job} />
+      <div className="p-4 sm:p-6 lg:p-8 mb-8 mx-auto w-[95%] sm:w-[90%] rounded-md flex flex-col lg:flex-row gap-4 lg:gap-8">
+        <div className="lg:w-[26%] flex flex-col gap-4 lg:gap-8 order-2 lg:order-1">
+          <div className="lg:block">
+            <JobCard activeJob job={job} />
+          </div>
 
-          {otherJobs.map((job: Job) => (
-            <JobCard job={job} key={job._id} />
-          ))}
+          <div className="hidden lg:block">
+            {otherJobs.map((job: Job) => (
+              <div key={job._id} className="mb-4 lg:mb-8">
+                <JobCard job={job} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="flex-1 bg-white p-6 rounded-md">
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <div className="w-14 h-14 relative overflow-hidden rounded-md flex items-center justify-center bg-gray-200">
+        <div className="flex-1 bg-white p-4 sm:p-6 rounded-md order-1 lg:order-2">
+          <div className="flex flex-col gap-3 sm:gap-4">
+            <div className="flex justify-between items-start sm:items-center">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 relative overflow-hidden rounded-md flex items-center justify-center bg-gray-200 flex-shrink-0">
                   <Image
                     src={profilePicture || "/user.png"}
                     alt={name || "User"}
@@ -88,13 +94,13 @@ function page() {
                   />
                 </div>
 
-                <div>
-                  <p className="font-bold">{name}</p>
-                  <p className="text-sm">Recruiter</p>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-sm sm:text-base truncate">{name}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Recruiter</p>
                 </div>
               </div>
               <button
-                className={`text-2xl  ${
+                className={`text-xl sm:text-2xl flex-shrink-0 ml-2 ${
                   isLiked ? "text-[#7263f3]" : "text-gray-400"
                 }`}
                 onClick={() => {
@@ -107,9 +113,9 @@ function page() {
               </button>
             </div>
 
-            <h1 className="text-2xl font-semibold">{title}</h1>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">{title}</h1>
             <div className="flex gap-4 items-center">
-              <p className="text-gray-500">{location}</p>
+              <p className="text-gray-500 text-sm sm:text-base">{location}</p>
             </div>
 
             <div className="mt-2 flex gap-4 justify-between items-center">

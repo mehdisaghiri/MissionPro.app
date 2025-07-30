@@ -65,19 +65,19 @@ function JobCard({ job, activeJob }: JobProps) {
 
   return (
     <div
-      className={`p-8 rounded-xl flex flex-col gap-5
+      className={`p-4 sm:p-6 lg:p-8 rounded-xl flex flex-col gap-3 sm:gap-4 lg:gap-5
     ${
       activeJob
         ? "bg-gray-50 shadow-md border-b-2 border-[#7263f3]"
-        : "bg-white"
+        : "bg-white shadow-sm border border-gray-100"
     }`}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between items-start">
         <div
-          className="group flex gap-1 items-center cursor-pointer"
+          className="group flex gap-2 sm:gap-3 items-start cursor-pointer flex-1 min-w-0"
           onClick={() => router.push(`/job/${job._id}`)}
         >
-          <div className="w-12 h-12 bg-gray-200 rounded-md flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-md flex items-center justify-center flex-shrink-0">
             <Image
               src={profilePicture || "/user.png"}
               alt={name || "User"}
@@ -87,9 +87,9 @@ function JobCard({ job, activeJob }: JobProps) {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
-            <h4 className="group-hover:underline font-bold">{title}</h4>
-            <p className="text-xs">
+          <div className="flex flex-col gap-1 min-w-0 flex-1">
+            <h4 className="group-hover:underline font-bold text-sm sm:text-base line-clamp-2">{title}</h4>
+            <p className="text-xs text-gray-600 truncate">
               {name}: {applicants.length}{" "}
               {applicants.length > 1 ? "Candidats" : "Candidat"}
             </p>
@@ -97,7 +97,7 @@ function JobCard({ job, activeJob }: JobProps) {
         </div>
 
         <button
-          className={`text-2xl ${
+          className={`text-lg sm:text-xl lg:text-2xl flex-shrink-0 ${
             isLiked ? "text-[#7263f3]" : "text-gray-400"
           } `}
           onClick={() => {
@@ -110,11 +110,11 @@ function JobCard({ job, activeJob }: JobProps) {
         </button>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
         {jobType.map((type, index) => (
           <span
             key={index}
-            className={`py-1 px-3 text-xs font-medium rounded-md border ${jobTypeBg(
+            className={`py-1 px-2 sm:px-3 text-xs font-medium rounded-md border ${jobTypeBg(
               type
             )}`}
           >
@@ -123,18 +123,18 @@ function JobCard({ job, activeJob }: JobProps) {
         ))}
       </div>
 
-      <p>
-        {companyDescription.length > 100
-          ? `${companyDescription.substring(0, 100)}...`
+      <p className="text-sm sm:text-base text-gray-600 line-clamp-3">
+        {companyDescription.length > 80
+          ? `${companyDescription.substring(0, 80)}...`
           : companyDescription}
       </p>
 
       <Separator />
 
-      <div className="flex justify-between items-center gap-6">
-        <p>
-          <span className="font-bold">{formatMoney(salary, "GBP")}</span>
-          <span className="font-medium text-gray-400 text-lg">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-6">
+        <p className="flex-shrink-0">
+          <span className="font-bold text-sm sm:text-base">{formatMoney(salary, "GBP")}</span>
+          <span className="font-medium text-gray-400 text-sm sm:text-base">
             /
             {salaryType === "Yearly"
               ? "pa"
@@ -146,11 +146,11 @@ function JobCard({ job, activeJob }: JobProps) {
           </span>
         </p>
 
-        <p className="flex items-center gap-2 text-sm text-gray-400">
-          <span className="text-lg">
-            <Calendar size={16} />
+        <p className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
+          <span className="text-sm sm:text-base">
+            <Calendar size={14} className="sm:w-4 sm:h-4" />
           </span>
-          Publié: {formatDates(createdAt)}
+          <span className="truncate">Publié: {formatDates(createdAt)}</span>
         </p>
       </div>
     </div>
