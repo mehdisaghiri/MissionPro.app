@@ -54,23 +54,25 @@ function Filters() {
   return (
     <>
       {/* Mobile Filter Toggle Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="lg:hidden flex items-center gap-2 w-full p-4 bg-white rounded-lg border border-gray-200 mb-4"
-      >
-        <Filter size={20} />
-        <span>Filtres</span>
-      </button>
+      <div className="lg:hidden mb-4">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="flex items-center justify-center gap-2 w-full p-3 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+        >
+          <Filter size={18} />
+          <span className="font-medium">Filtres & Recherche</span>
+        </button>
+      </div>
 
       {/* Mobile Overlay */}
       {isOpen && (
         <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-lg overflow-y-auto">
-            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg font-semibold">Filtres</h2>
+          <div className="fixed right-0 top-0 h-full w-full max-w-sm bg-white shadow-lg overflow-y-auto">
+            <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+              <h2 className="text-lg font-semibold text-gray-900">Filtres</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 hover:bg-gray-100 rounded-full"
+                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
               >
                 <X size={20} />
               </button>
@@ -92,17 +94,19 @@ function Filters() {
       )}
 
       {/* Desktop Filters */}
-      <div className="hidden lg:block w-[22rem] pr-4 space-y-6">
-        <FiltersContent
-          filters={filters}
-          handleFilterChange={handleFilterChange}
-          clearAllFilters={clearAllFilters}
-          searchJobs={searchJobs}
-          minSalary={minSalary}
-          maxSalary={maxSalary}
-          handleMinSalaryChange={handleMinSalaryChange}
-          handleMaxSalaryChange={handleMaxSalaryChange}
-        />
+      <div className="hidden lg:block">
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+          <FiltersContent
+            filters={filters}
+            handleFilterChange={handleFilterChange}
+            clearAllFilters={clearAllFilters}
+            searchJobs={searchJobs}
+            minSalary={minSalary}
+            maxSalary={maxSalary}
+            handleMinSalaryChange={handleMinSalaryChange}
+            handleMaxSalaryChange={handleMaxSalaryChange}
+          />
+        </div>
       </div>
     </>
   );
@@ -120,30 +124,34 @@ function FiltersContent({
   handleMaxSalaryChange
 }: any) {
   return (
-    <>
-      <div>
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold mb-4">Type d'Emploi</h2>
+    <div className="space-y-6">
+      {/* Clear All Button */}
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-gray-900">Filtres</h3>
+        <Button
+          variant={"ghost"}
+          size="sm"
+          className="text-red-500 hover:text-red-700 hover:bg-red-50"
+          onClick={() => {
+            clearAllFilters();
+            searchJobs();
+          }}
+        >
+          Effacer tout
+        </Button>
+      </div>
 
-          <Button
-            variant={"ghost"}
-            className="h-auto p-0 text-red-500 hover:text-red-700"
-            onClick={() => {
-              clearAllFilters();
-              searchJobs();
-            }}
-          >
-            Tout Effacer
-          </Button>
-        </div>
-        <div className="space-y-4">
+      {/* Job Type Section */}
+      <div className="space-y-3">
+        <h4 className="font-medium text-gray-900">Type d'Emploi</h4>
+        <div className="grid grid-cols-2 gap-3">
           <div className="flex items-center space-x-2">
             <Checkbox
               id="fullTime"
               checked={filters.fullTime}
               onCheckedChange={() => handleFilterChange("fullTime")}
             />
-            <Label htmlFor="fullTime">Temps Plein</Label>
+            <Label htmlFor="fullTime" className="text-sm">Temps Plein</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -151,7 +159,7 @@ function FiltersContent({
               checked={filters.partTime}
               onCheckedChange={() => handleFilterChange("partTime")}
             />
-            <Label htmlFor="partTime">Temps Partiel</Label>
+            <Label htmlFor="partTime" className="text-sm">Temps Partiel</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -159,7 +167,7 @@ function FiltersContent({
               checked={filters.contract}
               onCheckedChange={() => handleFilterChange("contract")}
             />
-            <Label htmlFor="contract">Contrat</Label>
+            <Label htmlFor="contract" className="text-sm">Contrat</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -167,21 +175,22 @@ function FiltersContent({
               checked={filters.internship}
               onCheckedChange={() => handleFilterChange("internship")}
             />
-            <Label htmlFor="internship">Stage</Label>
+            <Label htmlFor="internship" className="text-sm">Stage</Label>
           </div>
         </div>
       </div>
 
-      <div>
-        <h2 className="text-lg font-semibold mb-4">Étiquettes</h2>
-        <div className="space-y-4">
+      {/* Skills Section */}
+      <div className="space-y-3">
+        <h4 className="font-medium text-gray-900">Compétences</h4>
+        <div className="grid grid-cols-2 gap-3">
           <div className="flex items-center space-x-2">
             <Checkbox
               id="fullStack"
               checked={filters.fullStack}
               onCheckedChange={() => handleFilterChange("fullStack")}
             />
-            <Label htmlFor="fullStack">FullStack</Label>
+            <Label htmlFor="fullStack" className="text-sm">FullStack</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -189,7 +198,7 @@ function FiltersContent({
               checked={filters.backend}
               onCheckedChange={() => handleFilterChange("backend")}
             />
-            <Label htmlFor="backend">Backend</Label>
+            <Label htmlFor="backend" className="text-sm">Backend</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -197,54 +206,67 @@ function FiltersContent({
               checked={filters.devOps}
               onCheckedChange={() => handleFilterChange("devOps")}
             />
-            <Label htmlFor="devOps">DevOps</Label>
+            <Label htmlFor="devOps" className="text-sm">DevOps</Label>
           </div>
-
           <div className="flex items-center space-x-2">
             <Checkbox
               id="uiUx"
               checked={filters.uiUx}
               onCheckedChange={() => handleFilterChange("uiUx")}
             />
-            <Label htmlFor="uiUx">UI/UX</Label>
+            <Label htmlFor="uiUx" className="text-sm">UI/UX</Label>
           </div>
         </div>
       </div>
 
-      <div>
-        <h2 className="text-lg font-semibold mb-4">Fourchette de Salaire</h2>
-        <div className="flex flex-col gap-4">
-          <Label htmlFor="minSalary">Salaire Minimum</Label>
-          <Slider
-            id="minSalary"
-            min={0}
-            max={200000}
-            step={50}
-            value={[minSalary]}
-            onValueChange={handleMinSalaryChange}
-            className="w-full"
-          />
-          <span className="text-sm text-gray-500">
-            {formatMoney(minSalary, "GBP")}
-          </span>
+      {/* Salary Range Section */}
+      <div className="space-y-4">
+        <h4 className="font-medium text-gray-900">Fourchette de Salaire</h4>
+
+        <div className="space-y-4">
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <Label htmlFor="minSalary" className="text-sm text-gray-600">
+                Minimum
+              </Label>
+              <span className="text-sm font-medium">{formatMoney(minSalary, "GBP")}</span>
+            </div>
+            <Slider
+              id="minSalary"
+              min={0}
+              max={200000}
+              step={1000}
+              value={[minSalary]}
+              onValueChange={handleMinSalaryChange}
+              className="w-full"
+            />
+          </div>
+
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <Label htmlFor="maxSalary" className="text-sm text-gray-600">
+                Maximum
+              </Label>
+              <span className="text-sm font-medium">{formatMoney(maxSalary, "GBP")}</span>
+            </div>
+            <Slider
+              id="maxSalary"
+              min={0}
+              max={200000}
+              step={1000}
+              value={[maxSalary]}
+              onValueChange={handleMaxSalaryChange}
+              className="w-full"
+            />
+          </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <Label htmlFor="maxSalary">Salaire Maximum</Label>
-        <Slider
-          id="maxSalary"
-          min={0}
-          max={200000}
-          step={50}
-          value={[maxSalary]}
-          onValueChange={handleMaxSalaryChange}
-          className="w-full"
-        />
-        <span className="text-sm text-gray-500">
-          {formatMoney(maxSalary, "GBP")}
-        </span>
-      </div>
-    </>
+
+      {/* Search Button */}
+      <Button onClick={searchJobs} className="w-full bg-[#7263f3] hover:bg-[#6152e2]">
+        Appliquer les filtres
+      </Button>
+    </div>
   );
 }
 

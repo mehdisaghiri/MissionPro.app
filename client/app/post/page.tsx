@@ -15,15 +15,25 @@ function page() {
     }
   }, [isAuthenticated]);
   return (
-    <div className="flex flex-col">
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <h2 className="flex-1 pt-8 mx-auto w-[90%] text-3xl font-bold text-black">
-        Créer une Offre d'Emploi
-      </h2>
+      <div className="container mx-auto px-4 py-6 max-w-4xl">
 
-      <div className="flex-1 pt-8 w-[90%] mx-auto flex justify-center items-center">
-        <JobForm />
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            Créer une Offre d'Emploi
+          </h1>
+          <p className="text-gray-600">
+            Publiez votre offre d'emploi et trouvez les meilleurs candidats
+          </p>
+        </div>
+
+        {/* Job Form Container */}
+        <div className="bg-white rounded-xl shadow-sm p-6 sm:p-8">
+          <JobForm />
+        </div>
       </div>
     </div>
   );

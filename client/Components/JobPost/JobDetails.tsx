@@ -48,71 +48,98 @@ function JobDetails() {
     negotiable,
   } = useGlobalContext();
   return (
-    <div className="p-6 flex flex-col gap-4 bg-background border border-border rounded-lg">
-      <div className="grid grid-cols-2 gap-6">
-        <div className="flex-1">
-          <h3 className="text-black font-bold">Description de l'Emploi</h3>
-          <Label htmlFor="jobDescription" className="text-gray-500 mt-2">
-            Fournissez une description détaillée de l'emploi.
-          </Label>
+    <div className="space-y-8">
+
+      {/* Job Description Section */}
+      <div className="bg-white rounded-xl p-6 border border-gray-200">
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Description de l'Emploi</h3>
+          <p className="text-gray-600 text-sm">
+            Fournissez une description détaillée de l'emploi, des responsabilités et des exigences.
+          </p>
         </div>
-        <div className="flex-1">
+        <div className="min-h-[400px]">
           <MyEditor />
         </div>
       </div>
 
-      <Separator className="my-2" />
-
-      <div className="relative grid grid-cols-2 gap-6">
-        <div>
-          <h3 className="text-black font-bold">Salaire</h3>
-          <Label htmlFor="salary" className="text-gray-500 mt-2">
-            Entrez la fourchette de salaire pour l'emploi.
-          </Label>
+      {/* Salary Section */}
+      <div className="bg-white rounded-xl p-6 border border-gray-200">
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Informations Salariales</h3>
+          <p className="text-gray-600 text-sm">
+            Définissez la rémunération et les conditions salariales.
+          </p>
         </div>
 
-        <div>
-          <Input
-            type="number"
-            id="salary"
-            placeholder="Entrez le Salaire"
-            value={salary}
-            onChange={handleSalaryChange}
-            className="mt-2"
-          />
+        <div className="space-y-8">
+          {/* Salary Input */}
+          <div>
+            <Label htmlFor="salary" className="text-sm font-medium text-gray-700 mb-2 block">
+              Montant du Salaire
+            </Label>
+            <Input
+              type="number"
+              id="salary"
+              placeholder="Ex: 25000"
+              value={salary}
+              onChange={handleSalaryChange}
+              className="w-full"
+            />
+          </div>
 
-          <div className="flex gap-2 mt-2 justify-between">
-            <div className="flex items-center space-x-2 border border-gray-300 rounded-md p-2">
-              <Checkbox id="negotiable" />
-              <Label htmlFor="negotiable" className="text-gray-500">
-                Négociable
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2 border border-gray-300 rounded-md p-2">
-              <Checkbox
-                id="hideSalary"
-                checked={negotiable}
-                onCheckedChange={setNegotiable}
-              />
-              <Label htmlFor="hideSalary" className="text-gray-500">
-                Masquer le Salaire
-              </Label>
-            </div>
-
+          {/* Salary Type and Options */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
+              <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                Type de Salaire
+              </Label>
               <Select onValueChange={setSalaryType}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Sélectionner le Type" />
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Sélectionner le type" />
                 </SelectTrigger>
-                <SelectContent className="w-[120px] mt-2">
-                  <SelectItem value="Yearly">Annuel</SelectItem>
-                  <SelectItem value="Month">Mensuel</SelectItem>
-                  <SelectItem value="Hour">Horaire</SelectItem>
-                  <SelectItem value="Fixed">Fixe</SelectItem>
+                <SelectContent>
+                  <SelectItem value="Yearly">💰 Annuel</SelectItem>
+                  <SelectItem value="Monthly">📅 Mensuel</SelectItem>
+                  <SelectItem value="Weekly">📊 Hebdomadaire</SelectItem>
+                  <SelectItem value="Hourly">⏰ Horaire</SelectItem>
+                  <SelectItem value="Fixed">🎯 Fixe</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 bg-gray-50 rounded-lg p-3">
+                <Checkbox
+                  id="negotiable"
+                  checked={negotiable}
+                  onCheckedChange={setNegotiable}
+                />
+                <Label htmlFor="negotiable" className="text-sm font-medium text-gray-700">
+                  💬 Salaire négociable
+                </Label>
+              </div>
+            </div>
           </div>
+
+          {/* Salary Preview */}
+          {salary > 0 && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="font-medium text-blue-900 mb-2">Aperçu du Salaire</h4>
+              <p className="text-blue-800">
+                <span className="font-bold text-lg">{salary.toLocaleString()} DH</span>
+                {salaryType && (
+                  <span className="text-sm ml-2">
+                    / {salaryType === "Yearly" ? "an" :
+                        salaryType === "Monthly" ? "mois" :
+                        salaryType === "Weekly" ? "semaine" :
+                        salaryType === "Hourly" ? "heure" : "fixe"}
+                  </span>
+                )}
+                {negotiable && <span className="text-sm text-blue-600 ml-2">(négociable)</span>}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

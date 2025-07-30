@@ -62,116 +62,16 @@ function page() {
   };
 
   return (
-    <main>
+    <main className="min-h-screen bg-gray-50">
       <Header />
 
-      <div className="p-4 sm:p-6 lg:p-8 mb-8 mx-auto w-[95%] sm:w-[90%] rounded-md flex flex-col lg:flex-row gap-4 lg:gap-8">
-        <div className="lg:w-[26%] flex flex-col gap-4 lg:gap-8 order-2 lg:order-1">
-          <div className="lg:block">
-            <JobCard activeJob job={job} />
-          </div>
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
 
-          <div className="hidden lg:block">
-            {otherJobs.map((job: Job) => (
-              <div key={job._id} className="mb-4 lg:mb-8">
-                <JobCard job={job} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex-1 bg-white p-4 sm:p-6 rounded-md order-1 lg:order-2">
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <div className="flex justify-between items-start sm:items-center">
-              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 relative overflow-hidden rounded-md flex items-center justify-center bg-gray-200 flex-shrink-0">
-                  <Image
-                    src={profilePicture || "/user.png"}
-                    alt={name || "User"}
-                    width={45}
-                    height={45}
-                    className="rounded-md"
-                  />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <p className="font-bold text-sm sm:text-base truncate">{name}</p>
-                  <p className="text-xs sm:text-sm text-gray-600">Recruiter</p>
-                </div>
-              </div>
-              <button
-                className={`text-xl sm:text-2xl flex-shrink-0 ml-2 ${
-                  isLiked ? "text-[#7263f3]" : "text-gray-400"
-                }`}
-                onClick={() => {
-                  isAuthenticated
-                    ? handleLike(job._id)
-                    : router.push("https://missionpro-app-4qaf.onrender.com/login");
-                }}
-              >
-                {isLiked ? bookmark : bookmarkEmpty}
-              </button>
-            </div>
-
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">{title}</h1>
-            <div className="flex gap-4 items-center">
-              <p className="text-gray-500 text-sm sm:text-base">{location}</p>
-            </div>
-
-            <div className="mt-2 flex gap-4 justify-between items-center">
-              <p className="flex-1 py-2 px-4 flex flex-col items-center justify-center gap-1 bg-green-500/20 rounded-xl">
-                <span className="text-sm">Salaire</span>
-
-                <span>
-                  <span className="font-bold">
-                    {formatMoney(salary, "GBP")}
-                  </span>
-                  <span className="font-medium text-gray-500 text-lg">
-                    /
-                    {salaryType
-                      ? `${
-                          salaryType === "Yearly"
-                            ? "pa"
-                            : salaryType === "Monthly"
-                            ? "pcm"
-                            : salaryType === "Weekly"
-                            ? "pw"
-                            : "ph"
-                        }`
-                      : ""}
-                  </span>
-                </span>
-              </p>
-
-              <p className="flex-1 py-2 px-4 flex flex-col items-center justify-center gap-1 bg-purple-500/20 rounded-xl">
-                <span className="text-sm">Publié</span>
-                <span className="font-bold">{formatDates(createdAt)}</span>
-              </p>
-
-              <p className="flex-1 py-2 px-4 flex flex-col items-center justify-center gap-1 bg-blue-500/20 rounded-xl">
-                <span className="text-sm">Candidats</span>
-                <span className="font-bold">{applicants.length}</span>
-              </p>
-
-              <p className="flex-1 py-2 px-4 flex flex-col items-center justify-center gap-1 bg-yellow-500/20 rounded-xl">
-                <span className="text-sm">Type d'Emploi</span>
-                <span className="font-bold">{jobType[0]}</span>
-              </p>
-            </div>
-
-            <h2 className="font-bold text-2xl mt-2">Description de l'Emploi</h2>
-          </div>
-
-          <div
-            className="wysiwyg mt-2"
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></div>
-        </div>
-
-        <div className="w-[26%] flex flex-col gap-8">
+        {/* Mobile Apply Button - Fixed at top */}
+        <div className="lg:hidden mb-4">
           <button
-            className={`text-white py-4 rounded-full hover:bg-[#7263f3]/90 hover:text-white ${
-              isApplied ? "bg-green-500" : "bg-[#7263f3]"
+            className={`w-full text-white py-4 rounded-xl font-semibold text-lg transition-colors ${
+              isApplied ? "bg-green-500" : "bg-[#7263f3] hover:bg-[#6152e2]"
             }`}
             onClick={() => {
               if (isAuthenticated) {
@@ -186,71 +86,166 @@ function page() {
               }
             }}
           >
-            {isApplied ? "Candidature Envoyée" : "Postuler Maintenant"}
+            {isApplied ? "✓ Candidature Envoyée" : "Postuler Maintenant"}
           </button>
+        </div>
 
-          <div className="p-6 flex flex-col gap-2 bg-white rounded-md">
-            <h3 className="text-lg font-semibold">Autres Informations</h3>
+        <div className="flex flex-col lg:flex-row gap-6">
 
-            <div className="flex flex-col gap-2">
-              <p>
-                <span className="font-bold">Publié:</span>{" "}
-                {formatDates(createdAt)}
-              </p>
+          {/* Sidebar - Hidden on mobile, shown on desktop */}
+          <div className="hidden lg:block lg:w-80 flex-shrink-0">
+            <div className="sticky top-6 space-y-6">
+              <JobCard activeJob job={job} />
 
-              <p>
-                <span className="font-bold">Salaire négociable: </span>
-                <span
-                  className={`${
-                    negotiable ? "text-green-500" : "text-red-500"
+              {otherJobs.slice(0, 3).map((job: Job) => (
+                <JobCard key={job._id} job={job} />
+              ))}
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1 space-y-6">
+
+            {/* Job Header Card */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex gap-4 items-start flex-1">
+                  <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src={profilePicture || "/user.png"}
+                      alt={name || "User"}
+                      width={50}
+                      height={50}
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 leading-tight">{title}</h1>
+                    <p className="text-lg text-gray-700 font-medium mb-1">{name}</p>
+                    <p className="text-gray-600">📍 {location}</p>
+                  </div>
+                </div>
+                <button
+                  className={`p-3 rounded-xl transition-colors flex-shrink-0 ${
+                    isLiked
+                      ? "text-[#7263f3] bg-[#7263f3]/10"
+                      : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
                   }`}
+                  onClick={() => {
+                    isAuthenticated
+                      ? handleLike(job._id)
+                      : router.push("https://missionpro-app-4qaf.onrender.com/login");
+                  }}
                 >
-                  {negotiable ? "Oui" : "Non"}
-                </span>
-              </p>
+                  {isLiked ? bookmark : bookmarkEmpty}
+                </button>
+              </div>
 
-              <p>
-                <span className="font-bold">Localisation:</span> {location}
-              </p>
+              {/* Job Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                  <p className="text-xs text-green-700 mb-1">Salaire</p>
+                  <p className="font-bold text-green-900 text-sm">
+                    {formatMoney(salary, "GBP")}
+                  </p>
+                  <p className="text-xs text-green-700">
+                    /{salaryType === "Yearly" ? "an" : salaryType === "Monthly" ? "mois" : salaryType === "Weekly" ? "semaine" : "heure"}
+                  </p>
+                </div>
 
-              <p>
-                <span className="font-bold">Type d'Emploi:</span> {jobType[0]}
-              </p>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+                  <p className="text-xs text-blue-700 mb-1">Candidats</p>
+                  <p className="font-bold text-blue-900">{applicants.length}</p>
+                </div>
+
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 text-center">
+                  <p className="text-xs text-purple-700 mb-1">Type</p>
+                  <p className="font-bold text-purple-900 text-sm">{jobType[0]}</p>
+                </div>
+
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-center">
+                  <p className="text-xs text-orange-700 mb-1">Publié</p>
+                  <p className="font-bold text-orange-900 text-xs">{formatDates(createdAt)}</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="p-6 flex flex-col gap-2 bg-white rounded-md">
-            <h3 className="text-lg font-semibold">Étiquettes</h3>
-            <p>Autres étiquettes pertinentes pour le poste.</p>
-
-            <div className="flex flex-wrap gap-4">
-              {job.tags.map((tag: string, index: number) => (
-                <span
-                  key={index}
-                  className="px-4 py-1 rounded-full text-sm font-medium flex items-center bg-red-500/20 text-red-600"
-                >
-                  {tag}
-                </span>
-              ))}
+            {/* Job Description */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Description de l'Emploi</h2>
+              <div
+                className="prose prose-gray max-w-none text-gray-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             </div>
-          </div>
 
-          <div className="p-6 flex flex-col gap-2 bg-white rounded-md">
-            <h3 className="text-lg font-semibold">Compétences</h3>
-            <p>
-              Il s'agit d'un poste à temps plein. Le candidat retenu sera
-              responsable des éléments suivants:
-            </p>
+            {/* Job Details Cards - Mobile */}
+            <div className="space-y-4">
 
-            <div className="flex flex-wrap gap-4">
-              {job.tags.map((tag: string, index: number) => (
-                <span
-                  key={index}
-                  className="px-4 py-1 rounded-full text-sm font-medium flex items-center bg-indigo-500/20 text-[#7263f3]"
+              {/* Job Information */}
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Autres Informations</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Publié:</span>
+                    <span className="font-medium">{formatDates(createdAt)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Salaire négociable:</span>
+                    <span className={`font-medium ${negotiable ? "text-green-600" : "text-red-600"}`}>
+                      {negotiable ? "Oui" : "Non"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Localisation:</span>
+                    <span className="font-medium">{location}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Type d'Emploi:</span>
+                    <span className="font-medium">{jobType[0]}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Skills & Tags */}
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Compétences Requises</h3>
+                <div className="flex flex-wrap gap-2">
+                  {job.tags.map((tag: string, index: number) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1.5 rounded-full text-sm font-medium bg-[#7263f3]/10 text-[#7263f3] border border-[#7263f3]/20"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Apply Button */}
+            <div className="hidden lg:block">
+              <div className="bg-white rounded-xl p-6 shadow-sm sticky top-6">
+                <button
+                  className={`w-full text-white py-4 rounded-xl font-semibold text-lg transition-colors ${
+                    isApplied ? "bg-green-500" : "bg-[#7263f3] hover:bg-[#6152e2]"
+                  }`}
+                  onClick={() => {
+                    if (isAuthenticated) {
+                      if (!isApplied) {
+                        applyToJob(job._id);
+                        setIsApplied(true);
+                      } else {
+                        toast.error("Vous avez déjà postulé à cet emploi");
+                      }
+                    } else {
+                      router.push("https://missionpro-app-4qaf.onrender.com/login");
+                    }
+                  }}
                 >
-                  {tag}
-                </span>
-              ))}
+                  {isApplied ? "✓ Candidature Envoyée" : "Postuler Maintenant"}
+                </button>
+              </div>
             </div>
           </div>
         </div>

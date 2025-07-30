@@ -34,48 +34,83 @@ function page() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <div className="mt-8 w-[90%] mx-auto flex flex-col">
-        <div className="self-center flex items-center gap-6">
-          <button
-            className={`border border-gray-400 px-8 py-2 rounded-full font-medium
-          ${
-            activeTab === "posts"
-              ? "border-transparent bg-[#7263F3] text-white"
-              : "border-gray-400"
-          }`}
-            onClick={() => setActiveTab("posts")}
-          >
-            Mes Offres d'Emploi
-          </button>
-          <button
-            className={`border border-gray-400 px-8 py-2 rounded-full font-medium
-          ${
-            activeTab === "likes"
-              ? "border-transparent bg-[#7263F3] text-white"
-              : "border-gray-400"
-          }`}
-            onClick={() => setActiveTab("likes")}
-          >
-            Emplois Aimés
-          </button>
+      <div className="container mx-auto px-4 py-6 max-w-6xl">
+
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Mes Emplois</h1>
+
+          {/* Tab Navigation */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <button
+              className={`px-6 py-3 rounded-xl font-medium transition-colors text-sm sm:text-base ${
+                activeTab === "posts"
+                  ? "bg-[#7263F3] text-white shadow-md"
+                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+              }`}
+              onClick={() => setActiveTab("posts")}
+            >
+              📝 Mes Offres d'Emploi
+            </button>
+            <button
+              className={`px-6 py-3 rounded-xl font-medium transition-colors text-sm sm:text-base ${
+                activeTab === "likes"
+                  ? "bg-[#7263F3] text-white shadow-md"
+                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+              }`}
+              onClick={() => setActiveTab("likes")}
+            >
+              ❤️ Emplois Aimés
+            </button>
+          </div>
         </div>
 
+        {/* Empty States */}
         {activeTab === "posts" && userJobs.length === 0 && (
-          <div className="mt-8 flex items-center">
-            <p className="text-2xl font-bold">Aucune offre d'emploi trouvée.</p>
+          <div className="text-center py-12">
+            <div className="bg-white rounded-xl p-8 shadow-sm max-w-md mx-auto">
+              <div className="text-6xl mb-4">📝</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Aucune offre d'emploi trouvée
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Vous n'avez pas encore publié d'offres d'emploi.
+              </p>
+              <button
+                onClick={() => window.location.href = '/post'}
+                className="bg-[#7263F3] text-white px-6 py-2 rounded-lg hover:bg-[#6152e2] transition-colors"
+              >
+                Publier une offre
+              </button>
+            </div>
           </div>
         )}
 
         {activeTab === "likes" && likedJobs.length === 0 && (
-          <div className="mt-8 flex items-center">
-            <p className="text-2xl font-bold">Aucun emploi aimé trouvé.</p>
+          <div className="text-center py-12">
+            <div className="bg-white rounded-xl p-8 shadow-sm max-w-md mx-auto">
+              <div className="text-6xl mb-4">❤️</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Aucun emploi aimé trouvé
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Vous n'avez pas encore sauvegardé d'emplois.
+              </p>
+              <button
+                onClick={() => window.location.href = '/findwork'}
+                className="bg-[#7263F3] text-white px-6 py-2 rounded-lg hover:bg-[#6152e2] transition-colors"
+              >
+                Chercher des emplois
+              </button>
+            </div>
           </div>
         )}
 
-        <div className="my-8 grid grid-cols-2 gap-6">
+        {/* Jobs Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {activeTab === "posts" &&
             userJobs.map((job: Job) => <MyJob key={job._id} job={job} />)}
 

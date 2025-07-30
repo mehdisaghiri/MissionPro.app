@@ -74,47 +74,70 @@ function page() {
         />
       </div>
 
-      <div className="w-[95%] sm:w-[90%] mx-auto mb-14 px-2 sm:px-0">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black py-4 sm:py-8">Emplois Récents</h2>
+      {/* Main Content Container */}
+      <div className="bg-[#f0f5fa] min-h-screen">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-          <button
-            onClick={toggleGridColumns}
-            className="flex items-center gap-2 sm:gap-4 border border-gray-400 px-4 sm:px-8 py-2 rounded-full font-medium text-sm sm:text-base"
-          >
-            <span className="hidden sm:inline">
-              {columns === 3
-                ? "Vue Grille"
-                : columns === 2
-                ? "Vue Tableau"
-                : "Vue Liste"}
-            </span>
-            <span className="text-lg">{getIcon()}</span>
-          </button>
-        </div>
+          {/* Header Section */}
+          <div className="mb-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                  Emplois Récents
+                </h2>
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {filetredJobs.length} emploi{filetredJobs.length > 1 ? 's' : ''} trouvé{filetredJobs.length > 1 ? 's' : ''}
+                </p>
+              </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
-          {/* Mobile filters will be handled by Filters component */}
-          <div className="lg:w-80 lg:flex-shrink-0">
-            <Filters />
+              {/* View Toggle - Desktop Only */}
+              <button
+                onClick={toggleGridColumns}
+                className="hidden sm:flex items-center gap-3 border border-gray-300 bg-white px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-gray-50 transition-colors"
+              >
+                <span>
+                  {columns === 3
+                    ? "Vue Grille"
+                    : columns === 2
+                    ? "Vue Tableau"
+                    : "Vue Liste"}
+                </span>
+                <span className="text-lg">{getIcon()}</span>
+              </button>
+            </div>
+
+            {/* Filters Section */}
+            <div className="mb-6">
+              <Filters />
+            </div>
           </div>
 
-          <div
-            className={`flex-1 grid gap-4 sm:gap-6 lg:gap-8 ${
-              columns === 3
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                : columns === 2
-                ? "grid-cols-1 sm:grid-cols-2"
-                : "grid-cols-1"
-            }`}
-          >
+          {/* Jobs Grid */}
+          <div className="space-y-4">
             {jobs.length > 0 ? (
-              filetredJobs.map((job: Job) => (
-                <JobCard key={job._id} job={job} />
-              ))
+              <div
+                className={`grid gap-4 ${
+                  columns === 3
+                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                    : columns === 2
+                    ? "grid-cols-1 sm:grid-cols-2"
+                    : "grid-cols-1"
+                }`}
+              >
+                {filetredJobs.map((job: Job) => (
+                  <JobCard key={job._id} job={job} />
+                ))}
+              </div>
             ) : (
-              <div className="mt-1 flex items-center">
-                <p className="text-lg sm:text-xl lg:text-2xl font-bold">Aucun Emploi Trouvé !</p>
+              <div className="text-center py-12">
+                <div className="bg-white rounded-lg p-8 shadow-sm">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Aucun Emploi Trouvé !
+                  </h3>
+                  <p className="text-gray-600">
+                    Essayez d'ajuster vos filtres ou votre recherche
+                  </p>
+                </div>
               </div>
             )}
           </div>

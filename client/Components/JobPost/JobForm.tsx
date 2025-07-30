@@ -85,68 +85,122 @@ function JobForm() {
   };
 
   return (
-    <div className="w-full flex gap-6">
-      <div className="self-start w-[10rem] flex flex-col bg-white rounded-md shadow-sm overflow-hidden">
-        {sections.map((section, index) => (
-          <button
-            key={index}
-            className={`pl-4 py-3 relative flex self-start items-center gap-2 font-medium 
-                ${
-                  currentSection === section
-                    ? "text-[#7263F3]"
-                    : "text-gray-500"
-                }
-                `}
-            onClick={() => handleSectionChange(section)}
-          >
-            <span
-              className={`w-6 h-6 rounded-full flex items-center border border-gray-400/60 justify-center text-gray-500
-                ${
-                  currentSection === section ? " text-white" : ""
-                } ${getCompletedColor(section)}`}
+    <div className="w-full">
+
+      {/* Mobile Progress Steps */}
+      <div className="lg:hidden mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-semibold text-gray-900">Étape {sections.indexOf(currentSection) + 1} sur {sections.length}</h3>
+          <span className="text-sm text-gray-600">{currentSection}</span>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div
+            className="bg-[#7263F3] h-2 rounded-full transition-all duration-300"
+            style={{ width: `${((sections.indexOf(currentSection) + 1) / sections.length) * 100}%` }}
+          />
+        </div>
+
+        {/* Step Indicators */}
+        <div className="flex justify-between mt-3">
+          {sections.map((section, index) => (
+            <button
+              key={index}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-colors ${
+                index <= sections.indexOf(currentSection)
+                  ? "bg-[#7263F3] text-white"
+                  : "bg-gray-200 text-gray-500"
+              }`}
+              onClick={() => handleSectionChange(section)}
             >
               {index + 1}
-            </span>
-            {section}
-            {currentSection === section && (
-              <span className="w-1 h-full absolute left-0 top-0 bg-[#7263F3] rounded-full"></span>
-            )}
-          </button>
-        ))}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <form
-        action=""
-        className="p-6 flex-1 bg-white rounded-lg self-start"
-        onSubmit={handleSubmit}
-      >
-        {renderStages()}
+      <div className="flex flex-col lg:flex-row gap-6">
 
-        <div className="flex justify-end gap-4 mt-4">
-          {currentSection !== "Résumé" && (
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block lg:w-64 flex-shrink-0">
+          <div className="bg-gray-50 rounded-xl p-4 space-y-2">
+            {sections.map((section, index) => (
+              <button
+                key={index}
+                className={`w-full p-3 rounded-lg flex items-center gap-3 font-medium transition-colors text-left ${
+                  currentSection === section
+                    ? "bg-[#7263F3] text-white shadow-md"
+                    : "text-gray-700 hover:bg-white hover:shadow-sm"
+                }`}
+                onClick={() => handleSectionChange(section)}
+              >
+                <span
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                    currentSection === section
+                      ? "bg-white text-[#7263F3]"
+                      : getCompletedColor(section) === "bg-[#7263F3] text-white"
+                      ? "bg-[#7263F3] text-white"
+                      : "bg-gray-300 text-gray-600"
+                  }`}
+                >
+                  {index + 1}
+                </span>
+                <span className="text-sm">{section}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Form Content */}
+        <form
+          className="flex-1 space-y-6"
+          onSubmit={handleSubmit}
+        >
+          {renderStages()}
+
+          {/* Navigation Buttons */}
+          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 border-t border-gray-200">
             <button
               type="button"
-              className="px-6 py-2 bg-[#7263F3] text-white rounded-md"
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                sections.indexOf(currentSection) === 0
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
               onClick={() => {
                 const currentIndex = sections.indexOf(currentSection);
-
-                setCurrentSection(sections[currentIndex + 1]);
+                if (currentIndex > 0) {
+                  setCurrentSection(sections[currentIndex - 1]);
+                }
               }}
+              disabled={sections.indexOf(currentSection) === 0}
             >
-              Suivant
+              Précédent
             </button>
-          )}
 
-          {currentSection === "Résumé" && (
-            <button
-              type="submit"
-              className="self-end px-6 py-2 bg-[#7263F3] text-white rounded-md"
-            >
-              Publier l'Emploi
-            </button>
-          )}
-        </div>
-      </form>
+            {currentSection !== "Résumé" ? (
+              <button
+                type="button"
+                className="px-6 py-3 bg-[#7263F3] text-white rounded-lg font-medium hover:bg-[#6152e2] transition-colors"
+                onClick={() => {
+                  const currentIndex = sections.indexOf(currentSection);
+                  setCurrentSection(sections[currentIndex + 1]);
+                }}
+              >
+                Suivant
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+              >
+                🚀 Publier l'Emploi
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

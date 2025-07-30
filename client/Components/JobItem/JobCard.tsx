@@ -65,42 +65,45 @@ function JobCard({ job, activeJob }: JobProps) {
 
   return (
     <div
-      className={`p-4 sm:p-6 lg:p-8 rounded-xl flex flex-col gap-3 sm:gap-4 lg:gap-5
+      className={`p-5 sm:p-6 rounded-xl flex flex-col gap-4 transition-all duration-200 hover:shadow-md cursor-pointer
     ${
       activeJob
-        ? "bg-gray-50 shadow-md border-b-2 border-[#7263f3]"
-        : "bg-white shadow-sm border border-gray-100"
+        ? "bg-white shadow-lg border-l-4 border-[#7263f3]"
+        : "bg-white shadow-sm border border-gray-100 hover:border-gray-200"
     }`}
+      onClick={() => router.push(`/job/${job._id}`)}
     >
-      <div className="flex justify-between items-start">
-        <div
-          className="group flex gap-2 sm:gap-3 items-start cursor-pointer flex-1 min-w-0"
-          onClick={() => router.push(`/job/${job._id}`)}
-        >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-md flex items-center justify-center flex-shrink-0">
+      {/* Header Section */}
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex gap-3 items-start flex-1 min-w-0">
+          <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
             <Image
               src={profilePicture || "/user.png"}
               alt={name || "User"}
               width={40}
               height={40}
-              className="rounded-md"
+              className="rounded-lg object-cover"
             />
           </div>
 
           <div className="flex flex-col gap-1 min-w-0 flex-1">
-            <h4 className="group-hover:underline font-bold text-sm sm:text-base line-clamp-2">{title}</h4>
-            <p className="text-xs text-gray-600 truncate">
-              {name}: {applicants.length}{" "}
-              {applicants.length > 1 ? "Candidats" : "Candidat"}
+            <h3 className="font-bold text-gray-900 text-base sm:text-lg line-clamp-2 leading-tight">
+              {title}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {name}
             </p>
           </div>
         </div>
 
         <button
-          className={`text-lg sm:text-xl lg:text-2xl flex-shrink-0 ${
-            isLiked ? "text-[#7263f3]" : "text-gray-400"
-          } `}
-          onClick={() => {
+          className={`p-2 rounded-lg transition-colors flex-shrink-0 ${
+            isLiked
+              ? "text-[#7263f3] bg-[#7263f3]/10"
+              : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+          }`}
+          onClick={(e) => {
+            e.stopPropagation();
             isAuthenticated
               ? handleLike(job._id)
               : router.push("https://missionpro-app-4qaf.onrender.com/login");
@@ -110,48 +113,57 @@ function JobCard({ job, activeJob }: JobProps) {
         </button>
       </div>
 
-      <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
+      {/* Job Type Tags */}
+      <div className="flex items-center gap-2 flex-wrap mb-3">
         {jobType.map((type, index) => (
           <span
             key={index}
-            className={`py-1 px-2 sm:px-3 text-xs font-medium rounded-md border ${jobTypeBg(
-              type
-            )}`}
+            className={`py-1.5 px-3 text-xs font-medium rounded-full ${jobTypeBg(type)}`}
           >
             {type}
           </span>
         ))}
       </div>
 
-      <p className="text-sm sm:text-base text-gray-600 line-clamp-3">
-        {companyDescription.length > 80
-          ? `${companyDescription.substring(0, 80)}...`
+      {/* Job Description */}
+      <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed mb-4">
+        {companyDescription.length > 100
+          ? `${companyDescription.substring(0, 100)}...`
           : companyDescription}
       </p>
 
-      <Separator />
+      {/* Applicants Info */}
+      <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-1 text-xs text-gray-500">
+          <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+          {applicants.length} {applicants.length > 1 ? "Candidats" : "Candidat"}
+        </div>
+      </div>
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-6">
-        <p className="flex-shrink-0">
-          <span className="font-bold text-sm sm:text-base">{formatMoney(salary, "GBP")}</span>
-          <span className="font-medium text-gray-400 text-sm sm:text-base">
-            /
-            {salaryType === "Yearly"
-              ? "pa"
-              : salaryType === "Monthly"
-              ? "pcm"
-              : salaryType === "Weekly"
-              ? "pw"
-              : "ph"}
-          </span>
-        </p>
+      <Separator className="my-4" />
 
-        <p className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
-          <span className="text-sm sm:text-base">
-            <Calendar size={14} className="sm:w-4 sm:h-4" />
-          </span>
-          <span className="truncate">Publié: {formatDates(createdAt)}</span>
-        </p>
+      {/* Footer Section */}
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-1">
+          <p className="text-lg font-bold text-gray-900">
+            {formatMoney(salary, "GBP")}
+            <span className="text-sm font-normal text-gray-500 ml-1">
+              /
+              {salaryType === "Yearly"
+                ? "an"
+                : salaryType === "Monthly"
+                ? "mois"
+                : salaryType === "Weekly"
+                ? "semaine"
+                : "heure"}
+            </span>
+          </p>
+        </div>
+
+        <div className="flex items-center gap-1 text-xs text-gray-500">
+          <Calendar size={12} />
+          <span>{formatDates(createdAt)}</span>
+        </div>
       </div>
     </div>
   );
