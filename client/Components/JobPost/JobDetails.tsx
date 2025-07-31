@@ -124,9 +124,9 @@ function JobDetails() {
 
           {/* Salary Preview */}
           {salary > 0 && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h4 className="font-medium text-blue-900 mb-2">Aperçu du Salaire</h4>
-              <p className="text-blue-800">
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+              <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">Aperçu du Salaire</h4>
+              <p className="text-blue-800 dark:text-blue-200">
                 <span className="font-bold text-lg">{salary.toLocaleString()} DH</span>
                 {salaryType && (
                   <span className="text-sm ml-2">
@@ -136,7 +136,7 @@ function JobDetails() {
                         salaryType === "Hourly" ? "heure" : "fixe"}
                   </span>
                 )}
-                {negotiable && <span className="text-sm text-blue-600 ml-2">(négociable)</span>}
+                {negotiable && <span className="text-sm text-blue-600 dark:text-blue-300 ml-2">(négociable)</span>}
               </p>
             </div>
           )}

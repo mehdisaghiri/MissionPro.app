@@ -149,15 +149,15 @@ function ApplicantsPage({ params }: ApplicantPageProps) {
 
         {/* Applicants List */}
         {applicantsData.applicants.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 text-center border border-gray-200 dark:border-gray-700">
             <User size={48} className="mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun candidat pour le moment</h3>
-            <p className="text-gray-600">Lorsque des personnes postulent à cet emploi, elles apparaîtront ici.</p>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Aucun candidat pour le moment</h3>
+            <p className="text-gray-600 dark:text-gray-400">Lorsque des personnes postulent à cet emploi, elles apparaîtront ici.</p>
           </div>
         ) : (
           <div className="space-y-4">
             {applicantsData.applicants.map((applicant) => (
-              <div key={applicant._id} className="bg-white rounded-lg shadow-sm p-6">
+              <div key={applicant._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
                     <Image
@@ -167,19 +167,19 @@ function ApplicantsPage({ params }: ApplicantPageProps) {
                       height={60}
                       className="rounded-full"
                     />
-                    
+
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                         {applicant.name}
                       </h3>
-                      <p className="text-blue-600 font-medium mb-2">
+                      <p className="text-blue-600 dark:text-blue-400 font-medium mb-2">
                         {applicant.profession}
                       </p>
-                      <p className="text-gray-600 text-sm mb-3">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                         {applicant.bio}
                       </p>
-                      
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+
+                      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                         <div className="flex items-center gap-1">
                           <Mail size={14} />
                           <span>{applicant.email}</span>

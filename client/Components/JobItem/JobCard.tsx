@@ -76,7 +76,7 @@ function JobCard({ job, activeJob }: JobProps) {
       {/* Header Section */}
       <div className="flex justify-between items-start mb-3">
         <div className="flex gap-3 items-start flex-1 min-w-0">
-          <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
             <Image
               src={profilePicture || "/user.png"}
               alt={name || "User"}
@@ -100,7 +100,7 @@ function JobCard({ job, activeJob }: JobProps) {
           className={`p-2 rounded-lg transition-colors flex-shrink-0 ${
             isLiked
               ? "text-[#7263f3] bg-[#7263f3]/10"
-              : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+              : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
           }`}
           onClick={(e) => {
             e.stopPropagation();
@@ -126,7 +126,7 @@ function JobCard({ job, activeJob }: JobProps) {
       </div>
 
       {/* Job Description */}
-      <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed mb-4">
+      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed mb-4">
         {companyDescription.length > 100
           ? `${companyDescription.substring(0, 100)}...`
           : companyDescription}
@@ -134,7 +134,7 @@ function JobCard({ job, activeJob }: JobProps) {
 
       {/* Applicants Info */}
       <div className="flex items-center gap-2 mb-4">
-        <div className="flex items-center gap-1 text-xs text-gray-500">
+        <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
           <span className="w-2 h-2 bg-green-500 rounded-full"></span>
           {applicants.length} {applicants.length > 1 ? "Candidats" : "Candidat"}
         </div>

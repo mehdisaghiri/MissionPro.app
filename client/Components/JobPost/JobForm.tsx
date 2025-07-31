@@ -90,12 +90,12 @@ function JobForm() {
       {/* Mobile Progress Steps */}
       <div className="lg:hidden mb-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="font-semibold text-gray-900">Étape {sections.indexOf(currentSection) + 1} sur {sections.length}</h3>
-          <span className="text-sm text-gray-600">{currentSection}</span>
+          <h3 className="font-semibold text-gray-900 dark:text-white">Étape {sections.indexOf(currentSection) + 1} sur {sections.length}</h3>
+          <span className="text-sm text-gray-600 dark:text-gray-400">{currentSection}</span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
           <div
             className="bg-[#7263F3] h-2 rounded-full transition-all duration-300"
             style={{ width: `${((sections.indexOf(currentSection) + 1) / sections.length) * 100}%` }}
@@ -110,7 +110,7 @@ function JobForm() {
               className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-colors ${
                 index <= sections.indexOf(currentSection)
                   ? "bg-[#7263F3] text-white"
-                  : "bg-gray-200 text-gray-500"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
               }`}
               onClick={() => handleSectionChange(section)}
             >
@@ -124,14 +124,14 @@ function JobForm() {
 
         {/* Desktop Sidebar */}
         <div className="hidden lg:block lg:w-64 flex-shrink-0">
-          <div className="bg-gray-50 rounded-xl p-4 space-y-2">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-2 border border-gray-200 dark:border-gray-700">
             {sections.map((section, index) => (
               <button
                 key={index}
                 className={`w-full p-3 rounded-lg flex items-center gap-3 font-medium transition-colors text-left ${
                   currentSection === section
                     ? "bg-[#7263F3] text-white shadow-md"
-                    : "text-gray-700 hover:bg-white hover:shadow-sm"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm"
                 }`}
                 onClick={() => handleSectionChange(section)}
               >
@@ -160,13 +160,13 @@ function JobForm() {
           {renderStages()}
 
           {/* Navigation Buttons */}
-          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
             <button
               type="button"
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                 sections.indexOf(currentSection) === 0
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  ? "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
               }`}
               onClick={() => {
                 const currentIndex = sections.indexOf(currentSection);

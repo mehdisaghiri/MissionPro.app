@@ -129,7 +129,7 @@ function page() {
                   className={`p-3 rounded-xl transition-colors flex-shrink-0 ${
                     isLiked
                       ? "text-[#7263f3] bg-[#7263f3]/10"
-                      : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+                      : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                   onClick={() => {
                     isAuthenticated
@@ -143,38 +143,38 @@ function page() {
 
               {/* Job Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
-                  <p className="text-xs text-green-700 mb-1">Salaire</p>
-                  <p className="font-bold text-green-900 text-sm">
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3 text-center">
+                  <p className="text-xs text-green-700 dark:text-green-300 mb-1">Salaire</p>
+                  <p className="font-bold text-green-900 dark:text-green-100 text-sm">
                     {formatMoney(salary, "GBP")}
                   </p>
-                  <p className="text-xs text-green-700">
+                  <p className="text-xs text-green-700 dark:text-green-300">
                     /{salaryType === "Yearly" ? "an" : salaryType === "Monthly" ? "mois" : salaryType === "Weekly" ? "semaine" : "heure"}
                   </p>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
-                  <p className="text-xs text-blue-700 mb-1">Candidats</p>
-                  <p className="font-bold text-blue-900">{applicants.length}</p>
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 text-center">
+                  <p className="text-xs text-blue-700 dark:text-blue-300 mb-1">Candidats</p>
+                  <p className="font-bold text-blue-900 dark:text-blue-100">{applicants.length}</p>
                 </div>
 
-                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 text-center">
-                  <p className="text-xs text-purple-700 mb-1">Type</p>
-                  <p className="font-bold text-purple-900 text-sm">{jobType[0]}</p>
+                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg p-3 text-center">
+                  <p className="text-xs text-purple-700 dark:text-purple-300 mb-1">Type</p>
+                  <p className="font-bold text-purple-900 dark:text-purple-100 text-sm">{jobType[0]}</p>
                 </div>
 
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-center">
-                  <p className="text-xs text-orange-700 mb-1">Publié</p>
-                  <p className="font-bold text-orange-900 text-xs">{formatDates(createdAt)}</p>
+                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-3 text-center">
+                  <p className="text-xs text-orange-700 dark:text-orange-300 mb-1">Publié</p>
+                  <p className="font-bold text-orange-900 dark:text-orange-100 text-xs">{formatDates(createdAt)}</p>
                 </div>
               </div>
             </div>
 
             {/* Job Description */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Description de l'Emploi</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Description de l'Emploi</h2>
               <div
-                className="prose prose-gray max-w-none text-gray-700 leading-relaxed"
+                className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: description }}
               />
             </div>
@@ -183,33 +183,33 @@ function page() {
             <div className="space-y-4">
 
               {/* Job Information */}
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Autres Informations</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Autres Informations</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Publié:</span>
-                    <span className="font-medium">{formatDates(createdAt)}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Publié:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{formatDates(createdAt)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Salaire négociable:</span>
-                    <span className={`font-medium ${negotiable ? "text-green-600" : "text-red-600"}`}>
+                    <span className="text-gray-600 dark:text-gray-400">Salaire négociable:</span>
+                    <span className={`font-medium ${negotiable ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                       {negotiable ? "Oui" : "Non"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Localisation:</span>
-                    <span className="font-medium">{location}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Localisation:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{location}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Type d'Emploi:</span>
-                    <span className="font-medium">{jobType[0]}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Type d'Emploi:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{jobType[0]}</span>
                   </div>
                 </div>
               </div>
 
               {/* Skills & Tags */}
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Compétences Requises</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Compétences Requises</h3>
                 <div className="flex flex-wrap gap-2">
                   {job.tags.map((tag: string, index: number) => (
                     <span
@@ -225,7 +225,7 @@ function page() {
 
             {/* Desktop Apply Button */}
             <div className="hidden lg:block">
-              <div className="bg-white rounded-xl p-6 shadow-sm sticky top-6">
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 sticky top-6">
                 <button
                   className={`w-full text-white py-4 rounded-xl font-semibold text-lg transition-colors ${
                     isApplied ? "bg-green-500" : "bg-[#7263f3] hover:bg-[#6152e2]"

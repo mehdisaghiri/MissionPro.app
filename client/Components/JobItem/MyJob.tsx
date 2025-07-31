@@ -41,7 +41,7 @@ function MyJob({ job }: JobProps) {
   }, [job.likes, userProfile._id]);
 
   return (
-    <div className="p-8 bg-white rounded-xl flex flex-col gap-5">
+    <div className="p-8 bg-white dark:bg-gray-800 rounded-xl flex flex-col gap-5 border border-gray-200 dark:border-gray-700">
       <div className="flex justify-between">
         <div
           className="flex items-center space-x-4 mb-2 cursor-pointer"
