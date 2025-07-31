@@ -44,11 +44,11 @@ function page() {
       : jobs;
 
   return (
-    <main>
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <Header />
 
-      <div className="relative px-4 sm:px-8 lg:px-16 bg-[#D7DEDC] overflow-hidden">
-        <h1 className="py-6 sm:py-8 text-black font-bold text-xl sm:text-2xl lg:text-3xl">
+      <div className="relative px-4 sm:px-8 lg:px-16 bg-[#D7DEDC] dark:bg-gray-800 overflow-hidden transition-colors duration-200">
+        <h1 className="py-6 sm:py-8 text-black dark:text-white font-bold text-xl sm:text-2xl lg:text-3xl">
           Trouvez Votre Prochain Emploi Ici
         </h1>
 
@@ -75,17 +75,17 @@ function page() {
       </div>
 
       {/* Main Content Container */}
-      <div className="bg-[#f0f5fa] min-h-screen">
+      <div className="bg-[#f0f5fa] dark:bg-gray-900 min-h-screen transition-colors duration-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
           {/* Header Section */}
           <div className="mb-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   Emplois Récents
                 </h2>
-                <p className="text-gray-600 text-sm sm:text-base">
+                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
                   {filetredJobs.length} emploi{filetredJobs.length > 1 ? 's' : ''} trouvé{filetredJobs.length > 1 ? 's' : ''}
                 </p>
               </div>
@@ -93,7 +93,7 @@ function page() {
               {/* View Toggle - Desktop Only */}
               <button
                 onClick={toggleGridColumns}
-                className="hidden sm:flex items-center gap-3 border border-gray-300 bg-white px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-gray-50 transition-colors"
+                className="hidden sm:flex items-center gap-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <span>
                   {columns === 3
@@ -130,11 +130,11 @@ function page() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <div className="bg-white rounded-lg p-8 shadow-sm">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     Aucun Emploi Trouvé !
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     Essayez d'ajuster vos filtres ou votre recherche
                   </p>
                 </div>

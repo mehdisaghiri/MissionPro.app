@@ -57,7 +57,7 @@ function Filters() {
       <div className="lg:hidden mb-4">
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center gap-2 w-full p-3 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+          className="flex items-center justify-center gap-2 w-full p-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
         >
           <Filter size={18} />
           <span className="font-medium">Filtres & Recherche</span>
@@ -67,12 +67,12 @@ function Filters() {
       {/* Mobile Overlay */}
       {isOpen && (
         <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="fixed right-0 top-0 h-full w-full max-w-sm bg-white shadow-lg overflow-y-auto">
-            <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
-              <h2 className="text-lg font-semibold text-gray-900">Filtres</h2>
+          <div className="fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-gray-900 shadow-lg overflow-y-auto">
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Filtres</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+                className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-full transition-colors"
               >
                 <X size={20} />
               </button>
@@ -95,7 +95,7 @@ function Filters() {
 
       {/* Desktop Filters */}
       <div className="hidden lg:block">
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <FiltersContent
             filters={filters}
             handleFilterChange={handleFilterChange}
@@ -127,11 +127,11 @@ function FiltersContent({
     <div className="space-y-6">
       {/* Clear All Button */}
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900">Filtres</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Filtres</h3>
         <Button
           variant={"ghost"}
           size="sm"
-          className="text-red-500 hover:text-red-700 hover:bg-red-50"
+          className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
           onClick={() => {
             clearAllFilters();
             searchJobs();
@@ -143,7 +143,7 @@ function FiltersContent({
 
       {/* Job Type Section */}
       <div className="space-y-3">
-        <h4 className="font-medium text-gray-900">Type d'Emploi</h4>
+        <h4 className="font-medium text-gray-900 dark:text-white">Type d'Emploi</h4>
         <div className="grid grid-cols-2 gap-3">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -182,7 +182,7 @@ function FiltersContent({
 
       {/* Skills Section */}
       <div className="space-y-3">
-        <h4 className="font-medium text-gray-900">Compétences</h4>
+        <h4 className="font-medium text-gray-900 dark:text-white">Compétences</h4>
         <div className="grid grid-cols-2 gap-3">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -221,15 +221,15 @@ function FiltersContent({
 
       {/* Salary Range Section */}
       <div className="space-y-4">
-        <h4 className="font-medium text-gray-900">Fourchette de Salaire</h4>
+        <h4 className="font-medium text-gray-900 dark:text-white">Fourchette de Salaire</h4>
 
         <div className="space-y-4">
           <div>
             <div className="flex justify-between items-center mb-2">
-              <Label htmlFor="minSalary" className="text-sm text-gray-600">
+              <Label htmlFor="minSalary" className="text-sm text-gray-600 dark:text-gray-400">
                 Minimum
               </Label>
-              <span className="text-sm font-medium">{formatMoney(minSalary, "GBP")}</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">{formatMoney(minSalary, "GBP")}</span>
             </div>
             <Slider
               id="minSalary"
@@ -244,10 +244,10 @@ function FiltersContent({
 
           <div>
             <div className="flex justify-between items-center mb-2">
-              <Label htmlFor="maxSalary" className="text-sm text-gray-600">
+              <Label htmlFor="maxSalary" className="text-sm text-gray-600 dark:text-gray-400">
                 Maximum
               </Label>
-              <span className="text-sm font-medium">{formatMoney(maxSalary, "GBP")}</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">{formatMoney(maxSalary, "GBP")}</span>
             </div>
             <Slider
               id="maxSalary"

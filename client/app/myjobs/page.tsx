@@ -34,14 +34,14 @@ function page() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <Header />
 
       <div className="container mx-auto px-4 py-6 max-w-6xl">
 
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Mes Emplois</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">Mes Emplois</h1>
 
           {/* Tab Navigation */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -49,7 +49,7 @@ function page() {
               className={`px-6 py-3 rounded-xl font-medium transition-colors text-sm sm:text-base ${
                 activeTab === "posts"
                   ? "bg-[#7263F3] text-white shadow-md"
-                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveTab("posts")}
             >
@@ -59,7 +59,7 @@ function page() {
               className={`px-6 py-3 rounded-xl font-medium transition-colors text-sm sm:text-base ${
                 activeTab === "likes"
                   ? "bg-[#7263F3] text-white shadow-md"
-                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveTab("likes")}
             >
@@ -71,12 +71,12 @@ function page() {
         {/* Empty States */}
         {activeTab === "posts" && userJobs.length === 0 && (
           <div className="text-center py-12">
-            <div className="bg-white rounded-xl p-8 shadow-sm max-w-md mx-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm max-w-md mx-auto border border-gray-200 dark:border-gray-700">
               <div className="text-6xl mb-4">📝</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 Aucune offre d'emploi trouvée
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Vous n'avez pas encore publié d'offres d'emploi.
               </p>
               <button

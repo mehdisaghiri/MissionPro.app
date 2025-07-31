@@ -62,7 +62,7 @@ function page() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <Header />
 
       <div className="container mx-auto px-4 py-6 max-w-7xl">
@@ -107,10 +107,10 @@ function page() {
           <div className="flex-1 space-y-6">
 
             {/* Job Header Card */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex gap-4 items-start flex-1">
-                  <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Image
                       src={profilePicture || "/user.png"}
                       alt={name || "User"}
@@ -120,9 +120,9 @@ function page() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 leading-tight">{title}</h1>
-                    <p className="text-lg text-gray-700 font-medium mb-1">{name}</p>
-                    <p className="text-gray-600">📍 {location}</p>
+                    <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">{title}</h1>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 font-medium mb-1">{name}</p>
+                    <p className="text-gray-600 dark:text-gray-400">📍 {location}</p>
                   </div>
                 </div>
                 <button

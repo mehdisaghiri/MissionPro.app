@@ -23,7 +23,7 @@ function SearchForm() {
           value={searchQuery.title}
           onChange={(e) => handleSearchChange("title", e.target.value)}
           placeholder="Titre d'Emploi ou Mots-clés"
-          className="w-full py-4 sm:py-7 text-base sm:text-2xl text-black pl-12 sm:pl-[5rem] rounded-full sm:rounded-tl-full sm:rounded-bl-full sm:rounded-tr-none sm:rounded-br-none"
+          className="w-full py-4 sm:py-7 text-base sm:text-2xl text-black dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 pl-12 sm:pl-[5rem] rounded-full sm:rounded-tl-full sm:rounded-bl-full sm:rounded-tr-none sm:rounded-br-none placeholder-gray-500 dark:placeholder-gray-400"
         />
         <span>
           <Search
@@ -34,7 +34,7 @@ function SearchForm() {
       </div>
 
       {/* Separator - only visible on desktop */}
-      <div className="hidden sm:block absolute top-1/2 left-[48%] transform -translate-x-1/2 -translate-y-1/2 w-[2px] h-11 bg-gray-300"></div>
+      <div className="hidden sm:block absolute top-1/2 left-[48%] transform -translate-x-1/2 -translate-y-1/2 w-[2px] h-11 bg-gray-300 dark:bg-gray-600"></div>
 
       <div className="flex-1 relative">
         <input
@@ -44,9 +44,9 @@ function SearchForm() {
           value={searchQuery.location}
           onChange={(e) => handleSearchChange("location", e.target.value)}
           placeholder="Entrez la Localisation"
-          className="w-full py-4 sm:py-7 text-base sm:text-2xl text-black pl-12 sm:pl-[4rem] rounded-full sm:rounded-tr-full sm:rounded-br-full sm:rounded-tl-none sm:rounded-bl-none"
+          className="w-full py-4 sm:py-7 text-base sm:text-2xl text-black dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 pl-12 sm:pl-[4rem] rounded-full sm:rounded-tr-full sm:rounded-br-full sm:rounded-tl-none sm:rounded-bl-none placeholder-gray-500 dark:placeholder-gray-400"
         />
-        <span className="text-gray-400 text-xl sm:text-3xl absolute left-4 sm:left-6 top-[50%] translate-y-[-50%]">
+        <span className="text-gray-400 dark:text-gray-500 text-xl sm:text-3xl absolute left-4 sm:left-6 top-[50%] translate-y-[-50%]">
           {location}
         </span>
       </div>
