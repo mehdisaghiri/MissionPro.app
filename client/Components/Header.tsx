@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Profile from "./Profile";
 import LanguageSwitcher from "./LanguageSwitcher";
-import ThemeToggle from "./ThemeToggle";
 
 function Header() {
   const { isAuthenticated } = useGlobalContext();
@@ -65,7 +64,6 @@ function Header() {
 
         {/* Desktop Auth & Language */}
         <div className="hidden lg:flex items-center gap-4">
-          <ThemeToggle />
           <LanguageSwitcher />
           {isAuthenticated ? (
             <Profile />
@@ -144,12 +142,8 @@ function Header() {
               </Link>
             </div>
 
-            {/* Mobile Theme Toggle & Language Switcher */}
-            <div className="pt-4 border-t border-gray-300 dark:border-gray-600 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Theme</span>
-                <ThemeToggle />
-              </div>
+            {/* Mobile Language Switcher */}
+            <div className="pt-4 border-t border-gray-300 dark:border-gray-600">
               <LanguageSwitcher />
             </div>
 

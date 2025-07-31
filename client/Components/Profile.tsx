@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/context/globalContext";
 import { useLanguage } from "@/context/languageContext";
 import { Badge } from "./ui/badge";
+import ThemeSwitch from "./ThemeSwitch";
 
 function Profile() {
   const { userProfile } = useGlobalContext();
@@ -45,6 +46,13 @@ function Profile() {
             </p>
           </div>
         </DropdownMenuLabel>
+
+        <DropdownMenuSeparator />
+
+        {/* Theme Switch */}
+        <div className="px-2 py-1.5">
+          <ThemeSwitch />
+        </div>
 
         <DropdownMenuSeparator />
 
