@@ -143,9 +143,9 @@ function JobCard({ job, activeJob }: JobProps) {
       <Separator className="my-4" />
 
       {/* Footer Section */}
-      <div className="flex justify-between items-center">
-        <div className="flex flex-col gap-1">
-          <p className="text-lg font-bold text-gray-900">
+      <div className="flex justify-between items-center gap-2">
+        <div className="flex flex-col gap-1 min-w-0 flex-1">
+          <p className="text-lg font-bold text-gray-900 truncate">
             {formatMoney(salary, "GBP")}
             <span className="text-sm font-normal text-gray-500 ml-1">
               /
@@ -160,9 +160,9 @@ function JobCard({ job, activeJob }: JobProps) {
           </p>
         </div>
 
-        <div className="flex items-center gap-1 text-xs text-gray-500">
+        <div className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0">
           <Calendar size={12} />
-          <span>{formatDates(createdAt)}</span>
+          <span className="whitespace-nowrap">{formatDates(createdAt)}</span>
         </div>
       </div>
     </div>
