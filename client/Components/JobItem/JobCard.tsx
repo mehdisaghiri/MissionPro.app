@@ -68,8 +68,8 @@ function JobCard({ job, activeJob }: JobProps) {
       className={`p-5 sm:p-6 rounded-xl flex flex-col gap-4 transition-all duration-200 hover:shadow-md cursor-pointer
     ${
       activeJob
-        ? "bg-white shadow-lg border-l-4 border-[#7263f3]"
-        : "bg-white shadow-sm border border-gray-100 hover:border-gray-200"
+        ? "bg-white dark:bg-gray-800 shadow-lg border-l-4 border-[#7263f3]"
+        : "bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600"
     }`}
       onClick={() => router.push(`/job/${job._id}`)}
     >
@@ -87,10 +87,10 @@ function JobCard({ job, activeJob }: JobProps) {
           </div>
 
           <div className="flex flex-col gap-1 min-w-0 flex-1">
-            <h3 className="font-bold text-gray-900 text-base sm:text-lg line-clamp-2 leading-tight">
+            <h3 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg line-clamp-2 leading-tight">
               {title}
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               {name}
             </p>
           </div>
@@ -145,9 +145,9 @@ function JobCard({ job, activeJob }: JobProps) {
       {/* Footer Section */}
       <div className="flex justify-between items-center gap-2">
         <div className="flex flex-col gap-1 min-w-0 flex-1">
-          <p className="text-lg font-bold text-gray-900 truncate">
+          <p className="text-lg font-bold text-gray-900 dark:text-white truncate">
             {formatMoney(salary, "GBP")}
-            <span className="text-sm font-normal text-gray-500 ml-1">
+            <span className="text-sm font-normal text-gray-500 dark:text-gray-400 ml-1">
               /
               {salaryType === "Yearly"
                 ? "an"
@@ -160,7 +160,7 @@ function JobCard({ job, activeJob }: JobProps) {
           </p>
         </div>
 
-        <div className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0">
+        <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
           <Calendar size={12} />
           <span className="whitespace-nowrap">{formatDates(createdAt)}</span>
         </div>

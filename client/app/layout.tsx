@@ -1,6 +1,7 @@
 import "./globals.css";
 import ContextProvider from "@/providers/ContextProvider";
 import { LanguageProvider } from "@/context/languageContext";
+import { ThemeProvider } from "@/context/themeContext";
 import { Roboto } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 
@@ -26,11 +27,13 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className={`${roboto.className} antialiased`}>
+      <body className={`${roboto.className} antialiased bg-background text-foreground`}>
         <Toaster position="top-center" />
-        <LanguageProvider>
-          <ContextProvider>{children}</ContextProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <ContextProvider>{children}</ContextProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

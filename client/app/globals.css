@@ -82,8 +82,50 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-200;
   }
+}
+
+/* Dark mode improvements */
+.dark {
+  color-scheme: dark;
+}
+
+/* Quill editor dark mode support */
+.dark .ql-toolbar {
+  background: rgb(55 65 81) !important;
+  border-color: rgb(75 85 99) !important;
+}
+
+.dark .ql-container {
+  border-color: rgb(75 85 99) !important;
+}
+
+.dark .ql-editor {
+  background: rgb(31 41 55) !important;
+  color: rgb(243 244 246) !important;
+}
+
+.dark .ql-editor.ql-blank::before {
+  color: rgb(156 163 175) !important;
+}
+
+/* Scrollbar styling for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
 }
 
 body {

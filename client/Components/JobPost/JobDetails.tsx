@@ -51,10 +51,10 @@ function JobDetails() {
     <div className="space-y-8">
 
       {/* Job Description Section */}
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">Description de l'Emploi</h3>
-          <p className="text-gray-600 text-sm">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Description de l'Emploi</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
             Fournissez une description détaillée de l'emploi, des responsabilités et des exigences.
           </p>
         </div>
@@ -64,10 +64,10 @@ function JobDetails() {
       </div>
 
       {/* Salary Section */}
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">Informations Salariales</h3>
-          <p className="text-gray-600 text-sm">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Informations Salariales</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
             Définissez la rémunération et les conditions salariales.
           </p>
         </div>
@@ -75,7 +75,7 @@ function JobDetails() {
         <div className="space-y-8">
           {/* Salary Input */}
           <div>
-            <Label htmlFor="salary" className="text-sm font-medium text-gray-700 mb-2 block">
+            <Label htmlFor="salary" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
               Montant du Salaire
             </Label>
             <Input
@@ -91,7 +91,7 @@ function JobDetails() {
           {/* Salary Type and Options */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <Label className="text-sm font-medium text-gray-700 mb-2 block">
+              <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                 Type de Salaire
               </Label>
               <Select onValueChange={setSalaryType}>
@@ -109,13 +109,13 @@ function JobDetails() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 bg-gray-50 rounded-lg p-3">
+              <div className="flex items-center space-x-3 bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
                 <Checkbox
                   id="negotiable"
                   checked={negotiable}
                   onCheckedChange={setNegotiable}
                 />
-                <Label htmlFor="negotiable" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="negotiable" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   💬 Salaire négociable
                 </Label>
               </div>

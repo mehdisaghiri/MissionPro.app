@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Profile from "./Profile";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 
 function Header() {
   const { isAuthenticated } = useGlobalContext();
@@ -20,7 +21,7 @@ function Header() {
   };
 
   return (
-    <header className={`relative px-4 sm:px-6 lg:px-10 py-4 sm:py-6 bg-[#D7DEDC] text-gray-500 ${isRTL ? 'flex-row-reverse' : ''}`}>
+    <header className={`relative px-4 sm:px-6 lg:px-10 py-4 sm:py-6 bg-[#D7DEDC] dark:bg-gray-800 text-gray-500 dark:text-gray-300 transition-colors duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
       <div className="flex justify-between items-center">{/* Desktop and mobile container */}
         {/* Logo */}
         <Link href={"/"} className="flex items-center gap-2">
@@ -64,6 +65,7 @@ function Header() {
 
         {/* Desktop Auth & Language */}
         <div className="hidden lg:flex items-center gap-4">
+          <ThemeToggle />
           <LanguageSwitcher />
           {isAuthenticated ? (
             <Profile />
@@ -103,7 +105,7 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#D7DEDC] border-t border-gray-300 shadow-lg z-50">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#D7DEDC] dark:bg-gray-800 border-t border-gray-300 dark:border-gray-600 shadow-lg z-50">
           <div className="px-4 py-4 space-y-4">
             {/* Mobile Navigation Links */}
             <div className="space-y-2">
@@ -142,13 +144,17 @@ function Header() {
               </Link>
             </div>
 
-            {/* Mobile Language Switcher */}
-            <div className="pt-4 border-t border-gray-300">
+            {/* Mobile Theme Toggle & Language Switcher */}
+            <div className="pt-4 border-t border-gray-300 dark:border-gray-600 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Theme</span>
+                <ThemeToggle />
+              </div>
               <LanguageSwitcher />
             </div>
 
             {/* Mobile Auth Buttons */}
-            <div className="pt-4 border-t border-gray-300">
+            <div className="pt-4 border-t border-gray-300 dark:border-gray-600">
               {isAuthenticated ? (
                 <Profile />
               ) : (

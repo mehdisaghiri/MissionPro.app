@@ -67,11 +67,11 @@ export default function Home() {
   ];
 
   return (
-    <main>
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <Header />
 
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#d7dedc] to-[#7263f3]/5 text-primary-foreground">
-        <div className="container mx-auto px-4 text-center text-black">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#d7dedc] dark:from-gray-800 to-[#7263f3]/5 dark:to-[#7263f3]/10 text-primary-foreground">
+        <div className="container mx-auto px-4 text-center text-black dark:text-white">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#7263f3] font-bold mb-4 sm:mb-6 leading-tight">
             {t('home.hero.title')}
           </h1>
@@ -82,7 +82,7 @@ export default function Home() {
             <Input
               type="text"
               placeholder={t('home.search.placeholder')}
-              className="flex-grow bg-white text-black h-12 text-base"
+              className="flex-grow bg-white dark:bg-gray-800 text-black dark:text-white h-12 text-base border-gray-300 dark:border-gray-600"
             />
             <Button className="bg-[#7263f3] text-white h-12 px-6 whitespace-nowrap">
               <SearchIcon className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
@@ -92,9 +92,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-[#f0f5fa]">
+      <section className="py-20 bg-[#f0f5fa] dark:bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
             {t('home.whyChoose')}{" "}
             <span className="text-[#7263f3] font-extrabold">MissionPro</span>
           </h2>
