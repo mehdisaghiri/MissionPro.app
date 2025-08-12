@@ -1,5 +1,5 @@
 {
-  "homepage":"https://mehdisaghiri.github.io/MissionPro.app/",
+  "homepage": "https://mehdisaghiri.github.io/MissionPro.app/",
   "name": "server",
   "version": "1.0.0",
   "description": "",
@@ -8,8 +8,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build"
+    "make-admin": "node scripts/makeUserAdmin.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",

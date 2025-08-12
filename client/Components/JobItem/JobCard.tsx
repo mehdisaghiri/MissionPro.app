@@ -106,7 +106,7 @@ function JobCard({ job, activeJob }: JobProps) {
             e.stopPropagation();
             isAuthenticated
               ? handleLike(job._id)
-              : router.push("https://missionpro-app-4qaf.onrender.com/login");
+              : router.push("http://localhost:8000/login");
           }}
         >
           {isLiked ? bookmark : bookmarkEmpty}

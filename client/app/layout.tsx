@@ -4,6 +4,7 @@ import { LanguageProvider } from "@/context/languageContext";
 import { ThemeProvider } from "@/context/themeContext";
 import { Roboto } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import ChatWidget from "@/Components/ChatWidget";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -31,7 +32,10 @@ export default function RootLayout({
         <Toaster position="top-center" />
         <ThemeProvider>
           <LanguageProvider>
-            <ContextProvider>{children}</ContextProvider>
+            <ContextProvider>
+              {children}
+              <ChatWidget />
+            </ContextProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

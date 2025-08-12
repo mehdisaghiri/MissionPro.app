@@ -10,10 +10,11 @@ import Profile from "./Profile";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 function Header() {
-  const { isAuthenticated } = useGlobalContext();
+  const { isAuthenticated, userProfile } = useGlobalContext();
   const { t, isRTL } = useLanguage();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isAdmin = userProfile?.role === "admin";
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -24,7 +25,7 @@ function Header() {
       <div className="flex justify-between items-center">{/* Desktop and mobile container */}
         {/* Logo */}
         <Link href={"/"} className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="logo" width={36} height={36} className="sm:w-[45px] sm:h-[45px]" />
+          <Image src="/logo.png" alt="logo" width={36} height={36} className="sm:w-[45px] sm:h-[45px]" />
           <h1 className="font-extrabold text-xl sm:text-2xl text-[#7263f3]">MissionPro</h1>
         </Link>
 
@@ -60,6 +61,18 @@ function Header() {
           >
             {t('nav.postJob')}
           </Link>
+          {isAdmin && (
+            <Link
+              href={"/admin"}
+              className={`py-2 px-4 rounded-md text-sm ${
+                pathname.startsWith("/admin")
+                  ? "text-[#7263F3] border-[#7263F3] border bg-[#7263F3]/10"
+                  : "hover:text-[#7263F3] transition-colors"
+              }`}
+            >
+              Admin Dashboard
+            </Link>
+          )}
         </nav>
 
         {/* Desktop Auth & Language */}
@@ -70,14 +83,14 @@ function Header() {
           ) : (
             <div className="flex items-center gap-3">
               <Link
-                href={"https://missionpro-app-4qaf.onrender.com/login"}
+                href={"http://localhost:8000/login"}
                 className="py-2 px-4 rounded-md border flex items-center gap-2 bg-[#7263F3] text-white border-[#7263F3] hover:bg-[#7263F3]/90 transition-all duration-200 ease-in-out text-sm"
               >
                 <LogIn className="w-4 h-4" />
                 {t('nav.login')}
               </Link>
               <Link
-                href={"https://missionpro-app-4qaf.onrender.com/login"}
+                href={"http://localhost:8000/login"}
                 className="py-2 px-4 rounded-md border flex items-center gap-2 border-[#7263F3] text-[#7263F3] hover:bg-[#7263F3]/10 transition-all duration-200 ease-in-out text-sm"
               >
                 <UserPlus className="w-4 h-4" />
@@ -140,6 +153,19 @@ function Header() {
               >
                 {t('nav.postJob')}
               </Link>
+              {isAdmin && (
+                <Link
+                  href={"/admin"}
+                  className={`block py-3 px-4 rounded-md text-sm ${
+                    pathname.startsWith("/admin")
+                      ? "text-[#7263F3] border-[#7263F3] border bg-[#7263F3]/10"
+                      : "hover:text-[#7263F3] hover:bg-gray-100 transition-colors"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Admin Dashboard
+                </Link>
+              )}
             </div>
 
             {/* Mobile Language Switcher */}
@@ -154,7 +180,7 @@ function Header() {
               ) : (
                 <div className="space-y-3">
                   <Link
-                    href={"https://missionpro-app-4qaf.onrender.com/login"}
+                    href={"http://localhost:8000/login"}
                     className="w-full py-3 px-4 rounded-md border flex items-center justify-center gap-2 bg-[#7263F3] text-white border-[#7263F3] hover:bg-[#7263F3]/90 transition-all duration-200 ease-in-out text-sm"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -162,7 +188,7 @@ function Header() {
                     {t('nav.login')}
                   </Link>
                   <Link
-                    href={"https://missionpro-app-4qaf.onrender.com/login"}
+                    href={"http://localhost:8000/login"}
                     className="w-full py-3 px-4 rounded-md border flex items-center justify-center gap-2 border-[#7263F3] text-[#7263F3] hover:bg-[#7263F3]/10 transition-all duration-200 ease-in-out text-sm"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

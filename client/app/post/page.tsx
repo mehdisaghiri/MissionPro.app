@@ -11,7 +11,7 @@ function page() {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.push("https://missionpro-app-4qaf.onrender.com/login");
+      router.push("http://localhost:8000/login");
     }
   }, [isAuthenticated]);
   return (
